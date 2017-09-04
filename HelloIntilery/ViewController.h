@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UITextField *email;
+@property (weak, nonatomic) IBOutlet UITextField *favouriteFilm;
+@property (weak, nonatomic) IBOutlet UITextField *favouriteColour;
+@property (weak, nonatomic) IBOutlet UILabel *properties;
+@property (weak, nonatomic) IBOutlet UITextField *wishlistItem;
+@property (weak, nonatomic) IBOutlet UILabel *wishlist;
 
 @end
 

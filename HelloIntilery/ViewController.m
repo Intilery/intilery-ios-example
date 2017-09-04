@@ -25,5 +25,30 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (IBAction)handleSignIn:(UIButton *)sender {
+}
+
+- (IBAction)handleSignOut:(UIButton *)sender {
+}
+
+- (IBAction)handleSendEvent:(UIButton *)sender {
+}
+
+- (IBAction)handleSetVisitorProperties:(UIButton *)sender {
+}
+
+- (IBAction)handleGetVisitorProperties:(UIButton *)sender {
+}
+
+- (IBAction)addWishlistItem:(UIButton *)sender {
+}
+
+- (IBAction)removeWishlistItem:(UIButton *)sender {
+}
 
 @end

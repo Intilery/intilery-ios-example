@@ -9,6 +9,11 @@
 #import "AppDelegate.h"
 #import "Intilery.h"
 
+#define INTILERY_APP @"ios-test"
+#define INTILERY_TOKEN @"NGlvcy0xMDQxMDAxNTp6JnFoWEVpW3BtTzg="
+#define INTILERY_API_HOST @"https://www.intilery-analytics.com"
+
+
 @interface AppDelegate ()
 
 @end
@@ -18,6 +23,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [Intilery sharedInstanceWithToken:INTILERY_APP withToken:INTILERY_TOKEN withIntileryURL:INTILERY_API_HOST];
     return YES;
 }
 

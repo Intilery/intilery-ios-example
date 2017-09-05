@@ -38,6 +38,8 @@
 }
 
 - (IBAction)handleSendEvent:(UIButton *)sender {
+    Intilery *intilery = [Intilery sharedInstance];
+    [intilery track:@"favourite film" properties:@{@"Film.Name":[self.favouriteFilm text]}];
 }
 
 - (IBAction)handleSetVisitorProperties:(UIButton *)sender {

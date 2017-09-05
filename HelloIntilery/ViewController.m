@@ -32,9 +32,12 @@
 }
 
 - (IBAction)handleSignIn:(UIButton *)sender {
+    Intilery *intilery = [Intilery sharedInstance];
+    [intilery track:@"sign in" properties:@{@"Customer.Email":[self.email text]}];
 }
 
 - (IBAction)handleSignOut:(UIButton *)sender {
+    [[Intilery sharedInstance] track:@"Sign Out"];
 }
 
 - (IBAction)handleSendEvent:(UIButton *)sender {

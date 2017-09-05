@@ -46,9 +46,15 @@
 }
 
 - (IBAction)handleSetVisitorProperties:(UIButton *)sender {
+    [[Intilery sharedInstance] setVisitorProperties:@{@"Favourite Colour":[self.favouriteColour text]}];
 }
 
 - (IBAction)handleGetVisitorProperties:(UIButton *)sender {
+    [[Intilery sharedInstance] getVisitorProperties:@[@"Favourite Colour"] callback:
+     ^(NSDictionary * properties) {
+         [self.properties setText:[NSString stringWithFormat:@"Colour: %@",
+                                   [properties valueForKeyPath:@"Favourite Colour.value"]]];
+     }];
 }
 
 - (IBAction)addWishlistItem:(UIButton *)sender {

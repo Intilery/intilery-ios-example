@@ -42,6 +42,7 @@
 		0D385AB91F5DEE0F003B35EB /* HelloIntileryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloIntileryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D385ABD1F5DEE0F003B35EB /* HelloIntileryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloIntileryTests.m; sourceTree = "<group>"; };
 		0D385ABF1F5DEE0F003B35EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D5E68A31F5EB3470080861B /* HelloIntilery.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HelloIntilery.entitlements; sourceTree = "<group>"; };
 		2F96350B7D9D9D549F7EFBEA /* Pods-HelloIntileryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloIntileryTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HelloIntileryTests/Pods-HelloIntileryTests.release.xcconfig"; sourceTree = "<group>"; };
 		37C4EF4A0BF255D0644D8A6E /* Pods-HelloIntileryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloIntileryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HelloIntileryTests/Pods-HelloIntileryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		58DEA850560C42796BEDB56B /* Pods-HelloIntilery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloIntilery.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HelloIntilery/Pods-HelloIntilery.debug.xcconfig"; sourceTree = "<group>"; };
@@ -102,6 +103,7 @@
 		0D385AA21F5DEE0F003B35EB /* HelloIntilery */ = {
 			isa = PBXGroup;
 			children = (
+				0D5E68A31F5EB3470080861B /* HelloIntilery.entitlements */,
 				0D385AA61F5DEE0F003B35EB /* AppDelegate.h */,
 				0D385AA71F5DEE0F003B35EB /* AppDelegate.m */,
 				0D385AA91F5DEE0F003B35EB /* ViewController.h */,
@@ -200,6 +202,11 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = YG3H6QGGBY;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					0D385AB81F5DEE0F003B35EB = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -491,6 +498,7 @@
 			baseConfigurationReference = 58DEA850560C42796BEDB56B /* Pods-HelloIntilery.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HelloIntilery/HelloIntilery.entitlements;
 				DEVELOPMENT_TEAM = YG3H6QGGBY;
 				INFOPLIST_FILE = HelloIntilery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -504,6 +512,7 @@
 			baseConfigurationReference = AA1F9B4E120D0E03AD6560BE /* Pods-HelloIntilery.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HelloIntilery/HelloIntilery.entitlements;
 				DEVELOPMENT_TEAM = YG3H6QGGBY;
 				INFOPLIST_FILE = HelloIntilery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -559,6 +568,7 @@
 				0D385AC41F5DEE0F003B35EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0D385AC51F5DEE0F003B35EB /* Build configuration list for PBXNativeTarget "HelloIntileryTests" */ = {
 			isa = XCConfigurationList;
@@ -567,6 +577,7 @@
 				0D385AC71F5DEE0F003B35EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

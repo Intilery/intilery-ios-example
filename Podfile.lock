@@ -1,13 +1,13 @@
 PODS:
-  - Intilery (0.0.6):
-    - Intilery/Intilery (= 0.0.6)
-  - Intilery/Intilery (0.0.6)
+  - Intilery (1.0.1):
+    - Intilery/Intilery (= 1.0.1)
+  - Intilery/Intilery (1.0.1)
 
 DEPENDENCIES:
   - Intilery
 
 SPEC CHECKSUMS:
-  Intilery: 796560a41a4209bb0e3ae36f2df0644281cd009f
+  Intilery: 16a707bea7d846d3848c0d9a581cf8b257e01a8b
 
 PODFILE CHECKSUM: e2d9f9e027d29b13139d967768973fa61a7a737c
 

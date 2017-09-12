@@ -53,8 +53,7 @@
     NSLog(@"Foreground User Info : %@",notification.request.content.userInfo);
     completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
     
-    NSString *value = notification.request.content.userInfo[@"it"][@"id"];
-    [[Intilery sharedInstance] track:@"_push view" properties:@{@"_Email.Reference":value}];
+    [[Intilery sharedInstance] trackPushNotification:notification.request.content.userInfo];
  }
 
 //Called to let your app know which action was selected by the user for a given notification.
@@ -62,8 +61,7 @@
     NSLog(@"Background User Info : %@",response.notification.request.content.userInfo);
     completionHandler();
     
-    NSString *value = response.notification.request.content.userInfo[@"it"][@"id"];
-    [[Intilery sharedInstance] track:@"_push open" properties:@{@"_Email.Reference":value}];
+    [[Intilery sharedInstance] trackPushNotification:response.notification.request.content.userInfo];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -10,9 +10,14 @@
 #import "Intilery.h"
 
 #define INTILERY_APP @"ios-test"
-#define INTILERY_TOKEN @"NGlvcy0xMDQxMDAxNTp6JnFoWEVpW3BtTzg="
-#define INTILERY_API_HOST @"https://www.intilery-analytics.com"
 
+#ifdef DEBUG
+#define INTILERY_API_HOST @"http://www.intilery-analytics.com"
+#define INTILERY_TOKEN [[[NSProcessInfo processInfo] environment] valueForKey:@"INTILERY_TOKEN"]
+#else
+#define INTILERY_API_HOST @"" // prod collector address here
+#define INTILERY_TOKEN @"" // prod token here
+#endif
 
 @interface AppDelegate ()
 
@@ -31,7 +36,9 @@
         center.delegate = self;
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
             if(!error){
-                [[UIApplication sharedApplication] registerForRemoteNotifications];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[UIApplication sharedApplication] registerForRemoteNotifications];
+                });
             }
         }];
     } else {

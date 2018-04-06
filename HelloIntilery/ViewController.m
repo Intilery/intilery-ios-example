@@ -21,7 +21,6 @@
     
 #ifdef DEBUG
     [self.email setText:@"email@example.com"];
-    [self handleSignIn:NULL];
 #endif
 }
 

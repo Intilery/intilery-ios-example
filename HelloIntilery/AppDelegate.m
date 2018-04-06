@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "Intilery.h"
 
-#define INTILERY_API_HOST @""
+#define INTILERY_API_HOST @"http://www.intilery-analytics.com"
 
 #ifdef DEBUG
 #define INTILERY_APP @"ios-test"
@@ -30,8 +30,12 @@
     // Override point for customization after application launch.
     
     [Intilery sharedInstanceWithToken:INTILERY_APP withToken:INTILERY_TOKEN withIntileryURL:INTILERY_API_HOST];
-  
-    if ([UNUserNotificationCenter class]) {
+    
+    UIUserNotificationSettings *notificationSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+    
+    if (notificationSettings && notificationSettings.types == UIUserNotificationTypeNone) {
+        [[Intilery sharedInstance] removePushDeviceToken];
+    } else if ([UNUserNotificationCenter class]) {
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         center.delegate = self;
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
@@ -46,8 +50,10 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:userNotificationSettings];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
-    
-      return YES;
+}
+
+
+return YES;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -61,7 +67,7 @@
     completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
     
     [[Intilery sharedInstance] trackPushNotification:notification.request.content.userInfo];
- }
+}
 
 //Called to let your app know which action was selected by the user for a given notification.
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{

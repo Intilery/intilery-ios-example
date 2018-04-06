@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "Intilery.h"
 
-#define INTILERY_API_HOST @""
+#define INTILERY_API_HOST @"http://www.intilery-analytics.com"
 
 #ifdef DEBUG
 #define INTILERY_APP @"ios-test"
@@ -37,7 +37,12 @@
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
             if(!error){
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [[UIApplication sharedApplication] registerForRemoteNotifications];
+                    UIUserNotificationSettings *notificationSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+                    if (notificationSettings && notificationSettings.types != UIUserNotificationTypeNone) {
+                        [[UIApplication sharedApplication] registerForRemoteNotifications];
+                    } else {
+                        [[Intilery sharedInstance] removePushDeviceToken];
+                    }
                 });
             }
         }];
@@ -47,7 +52,7 @@
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
     
-      return YES;
+    return YES;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

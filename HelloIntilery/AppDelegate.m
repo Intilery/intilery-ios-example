@@ -9,10 +9,15 @@
 #import "AppDelegate.h"
 #import "Intilery.h"
 
-#define INTILERY_APP @"ios-test"
-#define INTILERY_TOKEN @"NGlvcy0xMDQxMDAxNTp6JnFoWEVpW3BtTzg="
-#define INTILERY_API_HOST @"https://www.intilery-analytics.com"
+#define INTILERY_API_HOST @""
 
+#ifdef DEBUG
+#define INTILERY_APP @"ios-test"
+#define INTILERY_TOKEN [[[NSProcessInfo processInfo] environment] valueForKey:@"INTILERY_TOKEN"]
+#else
+#define INTILERY_APP @"ios-adhoc"
+#define INTILERY_TOKEN @""
+#endif
 
 @interface AppDelegate ()
 
@@ -31,7 +36,9 @@
         center.delegate = self;
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
             if(!error){
-                [[UIApplication sharedApplication] registerForRemoteNotifications];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[UIApplication sharedApplication] registerForRemoteNotifications];
+                });
             }
         }];
     } else {
@@ -50,7 +57,7 @@
 
 //Called when a notification is delivered to a foreground app.
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
-    NSLog(@"Foreground User Info : %@",notification.request.content.userInfo);
+    NSLog(@"App already open : %@",notification.request.content.userInfo);
     completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
     
     [[Intilery sharedInstance] trackPushNotification:notification.request.content.userInfo];
@@ -58,7 +65,7 @@
 
 //Called to let your app know which action was selected by the user for a given notification.
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
-    NSLog(@"Background User Info : %@",response.notification.request.content.userInfo);
+    NSLog(@"Notification interaction : %@",response.notification.request.content.userInfo);
     completionHandler();
     
     [[Intilery sharedInstance] trackPushNotification:response.notification.request.content.userInfo];

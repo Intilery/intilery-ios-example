@@ -9,14 +9,14 @@
 #import "AppDelegate.h"
 #import "Intilery.h"
 
-#define INTILERY_APP @"ios-test"
+#define INTILERY_API_HOST @""
 
 #ifdef DEBUG
-#define INTILERY_API_HOST @"http://www.intilery-analytics.com"
+#define INTILERY_APP @"ios-test"
 #define INTILERY_TOKEN [[[NSProcessInfo processInfo] environment] valueForKey:@"INTILERY_TOKEN"]
 #else
-#define INTILERY_API_HOST @"" // prod collector address here
-#define INTILERY_TOKEN @"" // prod token here
+#define INTILERY_APP @"ios-adhoc"
+#define INTILERY_TOKEN @""
 #endif
 
 @interface AppDelegate ()
@@ -57,7 +57,7 @@
 
 //Called when a notification is delivered to a foreground app.
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
-    NSLog(@"Foreground User Info : %@",notification.request.content.userInfo);
+    NSLog(@"App already open : %@",notification.request.content.userInfo);
     completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
     
     [[Intilery sharedInstance] trackPushNotification:notification.request.content.userInfo];
@@ -65,7 +65,7 @@
 
 //Called to let your app know which action was selected by the user for a given notification.
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
-    NSLog(@"Background User Info : %@",response.notification.request.content.userInfo);
+    NSLog(@"Notification interaction : %@",response.notification.request.content.userInfo);
     completionHandler();
     
     [[Intilery sharedInstance] trackPushNotification:response.notification.request.content.userInfo];

@@ -20,7 +20,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
 #ifdef DEBUG
-    [self.email setText:@"andrew.whitaker@intilery.com"];
+    [self.email setText:@"email@example.com"];
     [self handleSignIn:NULL];
 #endif
 }

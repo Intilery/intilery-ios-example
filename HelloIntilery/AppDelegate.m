@@ -31,11 +31,7 @@
     
     [Intilery sharedInstanceWithToken:INTILERY_APP withToken:INTILERY_TOKEN withIntileryURL:INTILERY_API_HOST];
     
-    UIUserNotificationSettings *notificationSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
-    
-    if (notificationSettings && notificationSettings.types == UIUserNotificationTypeNone) {
-        [[Intilery sharedInstance] removePushDeviceToken];
-    } else if ([UNUserNotificationCenter class]) {
+    if ([UNUserNotificationCenter class]) {
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         center.delegate = self;
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
@@ -50,15 +46,20 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:userNotificationSettings];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
-}
-
-
-return YES;
+    
+    return YES;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"deviceToken: %@", deviceToken);
-    [[Intilery sharedInstance] addPushDeviceToken:deviceToken];
+    
+    UIUserNotificationSettings *notificationSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+    
+    if (notificationSettings && notificationSettings.types != UIUserNotificationTypeNone) {
+        [[Intilery sharedInstance] addPushDeviceToken:deviceToken];
+    } else {
+        [[Intilery sharedInstance] removePushDeviceToken];
+    }
 }
 
 //Called when a notification is delivered to a foreground app.
